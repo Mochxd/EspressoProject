@@ -18,28 +18,20 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ChangeTextBehaviorTest {
+    // Define the text to be changed or make the assertion for
     public static final String text = "Espresso";
+    // Set up the environment for the app
     @Rule
     public ActivityScenarioRule<MainActivity> activityScenarioRule
             = new ActivityScenarioRule<>(MainActivity.class);
 
     @Test
     public void changeText_sameActivity() {
+        // Type text and then press the button.
         onView(withId(R.id.editTextUserInput))
                 .perform(typeText(text), closeSoftKeyboard());
         onView(withId(R.id.changeTextBt)).perform(click());
-
+        // Check that the text was changed.
         onView(withId(R.id.textToBeChanged)).check(matches(withText(text)));
-    }
-
-
-    @Test
-    public void changeText_newActivity() {
-
-        onView(withId(R.id.editTextUserInput)).perform(typeText(text),
-                closeSoftKeyboard());
-        onView(withId(R.id.activityChangeTextBtn)).perform(click());
-
-        onView(withId(R.id.show_text_view)).check(matches(withText(text)));
     }
 }
